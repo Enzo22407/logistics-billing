@@ -3,7 +3,7 @@ services:
     name: logistics-app-service
     env: docker
     plan: free
-    region: fra
+    region: frankfurt
     dockerfilePath: Dockerfile
     envVars:
       - key: NODE_ENV
