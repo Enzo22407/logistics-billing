@@ -1,8 +1,9 @@
 services:
   - type: web
     name: logistics-billing-fullstack
-    env: docker
+    runtime: docker
     plan: starter
+    region: frankfurt
     dockerfilePath: Dockerfile
     envVars:
       - key: NODE_ENV
@@ -16,5 +17,4 @@ services:
         path: /app/backend/data
 disks:
   - name: logistics-db
-    region: frankfurt # Ou oregon, selon votre choix
     sizeGB: 1
