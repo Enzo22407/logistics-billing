@@ -15,6 +15,7 @@ services:
     diskMounts:
       - disk: logistics-db
         path: /app/backend/data
+
 disks:
   - name: logistics-db
     sizeGB: 1
