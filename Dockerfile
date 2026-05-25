@@ -1,22 +1,25 @@
-# Build frontend
+# --- Étape 1 : Construction du Frontend ---
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
-COPY vite.config.js .
-COPY public ./public
-COPY src ./src
 RUN npm install
+COPY . .
 RUN npm run build
 
-# Runtime image
+# --- Étape 2 : Serveur de Production ---
 FROM node:20-alpine AS runtime
 WORKDIR /app
+
+# Installation des dépendances backend uniquement
 COPY backend/package.json backend/package-lock.json ./backend/
+RUN cd backend && npm install --production
+
+# Copie du code backend et des fichiers frontend compilés
 COPY backend/server.js ./backend/
-COPY backend/logistics.db ./backend/
 COPY --from=builder /app/dist ./dist
-WORKDIR /app/backend
-RUN cd /app/backend && npm install --production
+
 ENV NODE_ENV=production
-EXPOSE 5000
+EXPOSE 10000
+
+WORKDIR /app/backend
 CMD ["node", "server.js"]

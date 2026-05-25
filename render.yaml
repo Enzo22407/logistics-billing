@@ -16,4 +16,5 @@ services:
         path: /app/backend/data
 disks:
   - name: logistics-db
+    region: frankfurt # Ou oregon, selon votre choix
     sizeGB: 1
