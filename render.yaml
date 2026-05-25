@@ -2,7 +2,7 @@ services:
   - type: web
     name: logistics-app-service
     env: docker
-    plan: starter
+    plan: free
     region: fra
     dockerfilePath: Dockerfile
     envVars:
@@ -10,10 +10,4 @@ services:
         value: production
       - key: PORT
         value: "10000"
-      - key: DB_PATH
-        value: /app/backend/data/logistics.db
-    disk:
-      name: logistics-db
-      mountPath: /app/backend/data
-      sizeGB: 1
   
