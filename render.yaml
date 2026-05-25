@@ -12,10 +12,8 @@ services:
         value: "10000"
       - key: DB_PATH
         value: /app/backend/data/logistics.db
-    mounts:
-      - name: logistics-db
-        path: /app/backend/data
-disks:
-  - name: logistics-db
-    sizeGB: 1
+    disk:
+      name: logistics-db
+      mountPath: /app/backend/data
+      sizeGB: 1
   
