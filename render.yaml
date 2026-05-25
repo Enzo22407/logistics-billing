@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: logistics-billing-fullstack
+    env: docker
+    plan: starter
+    dockerfilePath: Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "10000"
+      - key: DB_PATH
+        value: /app/backend/data/logistics.db
+    diskMounts:
+      - disk: logistics-db
+        path: /app/backend/data
+disks:
+  - name: logistics-db
+    sizeGB: 1

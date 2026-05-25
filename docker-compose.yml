@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  logistics-billing:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/logistics.db:/app/backend/logistics.db
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
