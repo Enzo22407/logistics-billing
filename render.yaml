@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: logistics-billing-fullstack
-    runtime: docker
+    name: logistics-app-service
+    env: docker
     plan: starter
-    region: frankfurt
+    region: fra
     dockerfilePath: Dockerfile
     envVars:
       - key: NODE_ENV
