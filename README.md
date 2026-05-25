@@ -31,7 +31,36 @@ Ce projet contient un frontend React/Vite et un backend Express dans `backend/`.
      - `PORT=10000`
      - `DB_PATH=/app/backend/data/logistics.db`
   5. Montez un disque persistant sur `/app/backend/data` (Render Disk) pour conserver la base SQLite.
-- Important : ce projet utilise un backend Express + SQLite. Pour un déploiement complet en production, Render est une bonne option car vous pouvez ajouter un disque persistant pour `logistics.db`.
+- Alternative : Fly.io, qui accepte aussi un service Docker avec volume persistant. Utilise le fichier `fly.toml` déjà présent.
+  1. Installe `flyctl` : `curl -L https://fly.io/install.sh | sh` ou `npm install -g flyctl`.
+  2. Connecte-toi : `flyctl auth login`.
+  3. Depuis le dossier racine du projet, lance : `flyctl launch --copy-config --name logistics-billing-fullstack --region fra --dockerfile Dockerfile`.
+  4. Crée un volume persistant : `flyctl volumes create logistics-db --region fra --size 1`.
+  5. Associe le volume à l’application : il est déjà défini dans `fly.toml` sur `/app/backend/data`.
+  6. Déploie : `flyctl deploy`.
+- Important : ce projet utilise un backend Express + SQLite. Fly.io est une bonne option si tu ne peux pas utiliser Render ou Railway, car il gère Docker et le stockage persistant pour la base.
+
+## Migration vers Supabase (Postgres) — option recommandée
+
+- Crée un projet Supabase gratuit et ouvre l'éditeur SQL.
+- Dans l'éditeur SQL, exécute le fichier `backend/supabase_schema.sql` pour créer les tables.
+- Depuis le dossier `backend`, installe les dépendances pour la migration :
+
+```bash
+cd backend
+npm install @supabase/supabase-js sqlite3
+```
+
+- Exporte/pose ta base SQLite locale dans `backend/logistics.db` (ou indique un chemin explicite).
+- Défini les variables d'environnement `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY` (clé service_role depuis Supabase Project Settings → API).
+- Puis lance la migration :
+
+```bash
+node migrate-to-supabase.js path/to/logistics.db
+```
+
+Après migration, adapte le backend pour utiliser Postgres (je peux générer un wrapper `backend/db.js` pour basculer automatiquement vers Postgres si tu veux).  
+
 
 ## React Compiler
 

@@ -1,0 +1,14 @@
+app = "logistics-billing-fullstack"
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "10000"
+  NODE_ENV = "production"
+  DB_PATH = "/app/backend/data/logistics.db"
+
+[[mounts]]
+  source = "logistics-db"
+  destination = "/app/backend/data"

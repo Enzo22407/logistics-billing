@@ -1,5 +1,4 @@
 node_modules/
-backend/
 Dockerfile
 docker-compose.yml
 .env
